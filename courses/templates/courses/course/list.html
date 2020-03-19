@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load static %}
+{% load staticfiles %}
+
+{% block title %}
+    Курсы
+{% endblock %}
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+  $(".gallery-img").click(function(){
+    var t = $(this).attr("src");
+    $(".modal-body").html("<img src='"+t+"' class='modal-img'>");
+    $("#myModal").modal();
+  });
+});
+
+</script>
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container-fluid body-back" style="padding-top:20px;padding-bottom:20px">
+<div class="container">
+        <a name="course-anchor"></a>
+          <center><h3>Категории</h3></center>
+
+          <hr>
+
+       <center> <div class="btn-group" role="group" aria-label="Basic example">
+           <a href="{% url 'course_list' %}#course-anchor" class="btn btn-outline-dark" ><b>Все курсы</b></a>
+          {% for c in subjects %}
+
+
+           <a href="{{ c.get_absolute_url }}#course-anchor" class="btn btn-outline-dark" ><b>{{ c.title }}</b></a>
+
+
+                {% endfor %}
+        </div></center>
+
+
+
+
+        <hr>
+</div>
+        <center><h3>{% if subject %}{{ subject.title }}{% else %}Курсы{% endif %}</h3></center>
+
+        {% for course in courses %}
+
+             <div class="projcard-container ">
+
+                <div class="projcard projcard-blue">
+                    <div class="projcard-innerbox">
+                       <a href="{{ course.get_absolute_url }}"><img class="projcard-img"  src="{% if course.image %}{{ course.image.url }}{% else %}{% static 'core/img/no_image.jpg' %}{% endif %}" /></a>
+                        <div class="projcard-textbox">
+                            <div class="projcard-title"><a href="{{ course.get_absolute_url }}" style="color: black;">{{ course.title }}</a></div>
+                            <div class="projcard-subtitle"><i class="far fa-calendar-alt"> {{ course.start.date }}, </i> <i class="far fa-clock"> {{ course.duration }} академических часа </i></div>
+                            <div class="projcard-bar"></div>
+                            <div class="projcard-description">{{ course.overview|truncatewords:18|linebreaksbr }}</div>
+                            <div class="projcard-tagbox">
+                                <span class="projcard-tag">{{course.subject}}</span>
+                                <span class="projcard-tag"><b>Цена: {{ course.price }} BYN</b></span>
+                                <span class="projcard-tag" style="color:red">Скидка: {{ course.discount }} %</span>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+        {% endfor %}
+
+
+
+
+
+
+</div>
+<div class="container-fluid bg-wall" style="padding-top:20px;padding-bottom:20px; ">
+    <center><h5 style="font-size: 35px;"><b>Галерея наших работ</b></h5></center>
+
+
+<div class="container">
+    <hr>
+	<div class="gallery">
+		<img src="{% static 'core/img/11.jpg' %}" alt="" width="100%" height="auto" class="gallery-img" />
+		<img src="{% static 'core/img/12.jpg' %}" alt="" width="100%" height="auto" class="gallery-img" />
+		<img src="{% static 'core/img/13.jpg' %}" alt="" width="100%" height="auto" class="gallery-img" />
+		<img src="{% static 'core/img/14.jpg' %}" alt="" width="100%" height="auto" class="gallery-img" />
+		<img src="{% static 'core/img/15.jpg' %}" alt="" width="100%" height="auto" class="gallery-img" />
+		<img src="{% static 'core/img/16.jpg' %}" alt="" width="100%" height="auto" class="gallery-img" />
+		<img src="{% static 'core/img/17.jpg' %}" alt="" width="100%" height="auto" class="gallery-img" />
+		<img src="{% static 'core/img/18.jpg' %}" alt="" width="100%" height="auto" class="gallery-img" />
+		<img src="{% static 'core/img/19.jpg' %}" alt="" width="100%" height="auto" class="gallery-img" />
+    <img src="{% static 'core/img/20.jpg' %}" alt="" width="100%" height="auto" class="gallery-img" />
+    <img src="{% static 'core/img/21.jpg' %}" alt="" width="100%" height="auto" class="gallery-img" />
+    <img src="{% static 'core/img/22.jpg' %}" alt="" width="100%" height="auto" class="gallery-img" />
+	</div>
+    <hr>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+</div>
+{% endblock %}

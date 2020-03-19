@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+{% load staticfiles %}
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+ <div class="container-fluid body-back" style="padding-top:50px;padding-bottom:50px">
+
+    <form class="transparent center-block order-form" method="post" action=".">
+        {% csrf_token %}
+
+        <div class="form-inner">
+            <h6>Оформить заказ</h6>
+            <div class="order-info">
+                <h4>Запись на услугу:</h4>
+                <ul style="padding: 1px; margin: 1px">
+                    {% for item in cart %}
+                        <li style=" padding: 1px;">
+                            <div><i><h4>{{ item.product.name }}</h4></i></div>
+                        </li>
+                    {% endfor %}
+
+                </ul>
+                <center>{% if cart.coupon %}<h4>
+                    "{{ cart.coupon.code }}" (Cкидка: <b style="color:red">{{ cart.coupon.discount }}%</b> или <span style="color:red"  > {{ cart.get_discount|floatformat:"2" }} BYN</span>)
+                            </h4>
+                    <h4 > Всего к оплате: <b style="color:red">{{ cart.get_total_price_after_discount|floatformat:"2" }} BYN</b></h4>
+                    {% else %}
+                     <h4>Цена: {{ cart.get_total_price }} BYN</h4>
+                    {% endif %}
+
+                   </center>
+            </div>
+
+            <label >Имя</label>
+            {{ form.first_name }}
+            <label >Фамилия</label>
+            {{ form.last_name }}
+            <label >Email адрес</label>
+            {{ form.email }}
+            <label >Телефон</label>
+            {{ form.phone }}
+            <button type="submit" class="btn btn-outline-dark btn-block btn-rounded">Сделать заказ</button>
+            {% csrf_token %}
+        </div>
+        </form>
+
+ </div>
+{% endblock %}

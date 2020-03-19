@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+    {% if course %}{{ course.title }}{% else %}Курс{% endif %}
+{% endblock %}
+{% block content %}
+{% if messages %}
+<div class="container-fluid body-back">
+    <hr>
+    <ul class="messages">
+        {% for message in messages %}
+            <center><li class="{{ message.tags }}" style="list-style-type: none;">
+                <h6 style="font-size: 25px;">{{ message|safe }} <a href="{{ request.path|urlencode }}" class="close">x</a></h6>
+
+            </li></center>
+        {% endfor %}
+    </ul>
+        <hr>
+</div>
+
+{% endif %}
+
+ <div class="container-fluid body-back" style="padding-top:50px;padding-bottom:50px">
+  <div class="row">
+
+    <div class="col-sm">
+
+    </div>
+
+    <div class="col-10">
+
+        <div class="card mb-3" style="max-width: 1500px;">
+
+              <div class="row no-gutters">
+                <div class="col-md-4">
+                  <img src="{% if course.image %}{{ course.image.url }}{% else %}{% static 'core/img/no_image.jpg' %}{% endif %}" class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                      <div class="card-header"><h3 class="card-title">{{ course.title }}</h3>
+                      <div class="projcard-title"> <i class="far fa-calendar-alt"> Дата старта: <b>{{ course.start.date }}</b></i></div>
+                      <div class="projcard-title"> <i class="far fa-clock"> Длительность курса: <b>{{ course.duration }} академических часа </b></i></div></div>
+                    <i class="card-text"> {{ course.overview|linebreaksbr }}</i>
+
+                     <div class="card-footer " style="padding: 10px"><big class=" text-black">
+
+                               <center style="text-decoration:line-through"> Стоимость обучения: {{ course.price }} BYN</center>
+                                <center style="color:red"> Стоимость обучения cо скидкой: {{ price_with_discount }} BYN</center>
+                         <hr>
+                         <center><a class="btn btn-outline-dark" data-toggle="modal" data-target="#Entry"><i>Записаться на курс</i></a></center>
+                             <!-- Modal -->
+                            <div class="modal fade" id="Entry" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-body bg-footer">
+                                    <form class="transparent center-block" method="post" action="{{ request.path|urlencode }}">
+
+                                        {% csrf_token %}
+                                        <div class="form-inner">
+                                            <h6>Запись на курс</h6>
+                                            <label >Имя</label>
+                                            {{ entry_form.first_name}}
+                                            <label>Фамилия</label>
+                                            {{ entry_form.last_name}}
+                                            <label>Email</label>
+                                            {{ entry_form.email}}
+                                            <label>Телефон</label>
+                                            {{ entry_form.phone}}
+                                            <label for="comment">Комментарий:</label>
+                                            <textarea class="form-control" name="comments" rows="2" id="comment" ></textarea>
+                                            <hr>
+                                            <button type="submit" class="btn btn-outline-dark btn-block btn-rounded"><b>Записаться на курс</b></button>
+                                        </div>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            </big>
+
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+      </div>
+
+
+        <div class="col-sm">
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+{% endblock %}

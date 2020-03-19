@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+{% load staticfiles %}
+{% block title %}Заказ{% endblock %}
+
+{% block content %}
+
+ <div class="container-fluid body-back" style="padding-top:50px;padding-bottom:50px">
+     <div class="row">
+    <div class="col-sm">
+    </div>
+
+    <div class="col-8">
+        <center><h3>Запись на услугу</h3></center>
+        <hr>
+
+  <center><table class="table_blur">
+        <thead>
+        <tr>
+            <th >Имя</th>
+            <th>Фамилия</th>
+            <th>Электронный адрес </th>
+            <th >Телефон</th>
+            <th>Номер заказа</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+                <tr>
+                    <td>
+                        {{order.first_name }}
+                    </td>
+                    <td>
+                        {{order.last_name }}
+                    </td>
+                    <td>{{order.email }}</td>
+                    <td>{{order.phone }}</td>
+                    <td>{{order.id }}</td>
+                </tr>
+
+
+        </tbody>
+    </table></center>
+        <hr>
+        <center><h3>Спасибо!</h3></center>
+    <center><h3>Ваш заказ был успешно сохранен. Наш менеджер свяжется с вами в ближайшее время!</h3></center>
+
+    </div>
+
+
+     <div class="col-sm">
+    </div>
+     </div>
+
+
+ </div>
+{% endblock %}

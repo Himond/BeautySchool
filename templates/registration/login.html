@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Log-in{% endblock %}
+{% block content %}
+<div class="container-fluid body-back " style="padding-top:50px;padding-bottom:50px">
+    {% if request.user.is_anonymous %}
+    <form class="transparent center-block" method="post" action="{% url 'login' %}?next={{ request.path|urlencode }}">
+        {% csrf_token %}
+
+        <div class="form-inner">
+            <h6>Вход</h6>
+            <label >Имя пользователя или Email</label>
+            {{ form.username }}
+            <label >Пароль:</label>
+            {{ form.password }}
+            <button type="submit" class="btn btn-outline-dark btn-block btn-rounded">Войти!</button>
+            <hr>
+            <label><a href="{% url 'password_reset' %}" style="color:white; font-size: 15px;">Забыли свой пароль?</a></label>
+            <label><a href="{% url 'register' %}" style="color:white; font-size: 15px;">Регистрация</a></label>
+        </div>
+        </form>
+    {% endif %}
+    {% if request.user.is_authenticated %}
+    <div class="form-inner">
+        <h6 class="text-center" style="color:black"> Спасибо что вы с нами "{{ request.user.username }}" </h6>
+        </div>
+    <hr>
+            <div class="card-deck">
+          <div class="card border-dark bg-back">
+              <img src="{% static 'core/img/login-start.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-header"><h4>Ближайшие старты и не только</h4></div>
+            <div class="card-body">
+              <h4 class="card-text">Мы будем оповещать вас: </h4>
+                <ul>
+                    <li>О начале старта наших курсов.</li>
+                    <li>Об открытии новых курсов и специализаций.</li>
+                    <li>О проводимых акциях и скидках на наши курсы.</li>
+                    <li>О преимуществах наших курсов и успехах наших выпускников.</li>
+                </ul>
+                <hr>
+                    <a href="{% url 'course_list' %}" class="btn btn-outline-dark " >Наши курсы</a>
+            </div>
+
+          </div>
+          <div class="card border-dark bg-back">
+              <img src="{% static 'core/img/blog.jpg' %}" class="card-img-top" alt="...">
+            <div class="card-header"><h4>Наш блог</h4></div>
+            <div class="card-body ">
+              <h6 class="card-text" style="font-size: 20px;">Мы рады делиться с Вами всеми секретами для создания идеального образа как на каждый
+                  день, так и для любого праздника! </h6>
+                <hr>
+                <h6 class="card-text" style="font-size: 20px;">Тонкости нанесения макияжа, подборка актуальных причесок на каждый день,
+                  секреты фотокопирования и многое другое Вы найдете в нашем блоге.</h6>
+              <hr>
+              <a href="{% url 'post_list' %}" class="btn btn-outline-dark " >Наш блог</a>
+            </div>
+
+          </div>
+          <div class="card border-dark bg-back">
+              <img src="{% static 'core/img/comments.jpg' %}" class="card-img-top" alt="...">
+              <div class="card-header"><h4>Оставляйте ваши отзывы</h4></div>
+            <div class="card-body">
+              <h6 class="card-text" style="font-size: 20px;">Вы сможете делиться Вашими впечатлениями о нашей работе, услугах,
+                пожеланиями по курсам и т.д. Ваша оценка очень важна для нас. </h6>
+                <hr>
+                <h6 class="card-text" style="font-size: 20px;">Мы постоянно усовершенствуем себя, реагируя
+                на Ваши пожелания и отзывы. И наш коллектив, предлагает сотрудничать вместе — оставляйте Ваши отзывы на сайте,
+                чтобы мы могли организовать работу нашей школы на высоком уровне.</h6>
+
+
+
+            </div>
+
+          </div>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

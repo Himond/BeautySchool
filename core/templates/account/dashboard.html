@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %} Личный кабинет {% endblock %}
+{% block content %}
+{% load staticfiles %}
+
+<div class="container-fluid body-back  mx-auto" style="padding-top:50px;padding-bottom:50px">
+    <div class="container-fluid">
+
+  <div class="row">
+    <div class="col-sm">
+
+    </div>
+    <div class="col-8">
+
+        <center><h1>Аккаунт</h1></center>
+        <center><h4><i>Добро пожаловать.</i></h4></center>
+        <hr>
+        <div class="card mb-3 center-block" style="max-width: 1000px;">
+              <div class="row no-gutters">
+                <div class="col-md-4">
+                  <img src="/media/{{profile.photo}}" class="card-img " alt="...">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                      <div class="card-header"><h6 class="card-title" style=" font-size: 20px;">Личные данные</h6></div>
+
+                    <li><i class="card-text">Логин: {{ profile.user.username}}</i></li>
+                     <li><i class="card-text">Имя: {{ profile.user.first_name}}</i></li>
+                       <li><i class="card-text">Фамилия: {{ profile.user.last_name}}</i></li>
+                       <li><i class="card-text">Электронная почта: {{ profile.user.email}}</i></li>
+                       <li><i class="card-text">Дата рождения: {{ profile.date_of_birth}}</i></li>
+                      <div class="card-footer"> <h4 class="card-text"><small class="text-muted"> Вы можете <a href="{% url 'edit' %}">редактировать профиль</a> или <a href="{% url 'password_change' %}">изменить пароль</a>.</small></h4></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+    </div>
+ <div class="col-sm">
+        </div>
+  </div>
+</div>
+</div>
+{% endblock %}

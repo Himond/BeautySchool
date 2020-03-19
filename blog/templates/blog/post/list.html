@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %} Beuty-блог {% endblock %}
+
+{% block content %}
+<div class="container-fluid body-back" style="padding-top:50px;padding-bottom:50px">
+ <div class="row justify-content-md ">
+    <div class="col col-lg-4">
+    </div>
+    <div class="col-lg-auto">
+        <div class="container-fluid text-center"><h1  style="font-size: 50px;">Блог</h1></div>
+        <center><i><h5 style="font-size: 25px;"><b>Наши статьи о красоте!!!</b></h5></i></center>
+        <hr>
+
+
+       {% for post in posts %}
+
+        <div  style=" margin: 20px;" >
+    <div class="card bg-light text-grey center-block " style="max-width: 700px; padding: 5px;">
+        <div class="row no-gutters">
+      <img src="/media/{{ post.photo }}" class="card-img" alt="..." style="opacity: 0.45;">
+      <div class="card-img-overlay">
+          <div class="card-header"> <h3 class="card-title text-grey text-center"><a href="{{ post.get_absolute_url }}" style="color: black; font-size: 30px; ">{{ post.title }}</a></h3></div>
+
+          <h6 class="card-text" style=" font-size: 20px;"><i>{{ post.body|truncatewords:50|linebreaksbr  }}</i></h6>
+
+          <div class="card-footer "><small class=" text-black">
+            Опубликованно {{ post.publish }} автор {{ post.author }}
+            </small>
+
+
+          </div>
+          <center><div style="margin:30px"><a href="{{ post.get_absolute_url }}" type="button" class="btn btn-outline-dark">Читать дальше <i class="fas fa-long-arrow-alt-right"></i></a></div></center>
+
+
+      </div>
+        </div>
+    </div>
+    </div>
+
+    {% endfor %}
+        <hr>
+        <div class="container-fluid text-center "><center>{% include "pagination.html" with page=page_obj %}</center></div>
+    </div>
+    <div class="col col-lg-4">
+    </div>
+  </div>
+
+
+
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static %}
+{% load staticfiles %}
+{% block title %}
+    Ваша корзина
+{% endblock %}
+{% block content %}
+
+<div class="container-fluid body-back" style="padding-top:50px;padding-bottom:50px">
+    <div class="container-fluid">
+  <div class="row">
+    <div class="col-sm">
+    </div>
+
+    <div class="col-8">
+        <center><h3>Корзина покупок</h3></center>
+        <hr>
+
+  <center><table class="table_blur">
+        <thead>
+        <tr>
+            <th colspan="2">Услуга</th>
+            <th>Удалить</th>
+            <th>Цена</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in cart %}
+            {% with product=item.product %}
+                <tr>
+                    <td>
+                        <a href="{{ product.get_absolute_url }}">
+                            <img src="
+                                {% if product.image %}
+                                    {{ product.image.url }}
+                                {% else %}
+                                    {% static 'core/img/no_image.jpg' %}
+                                {% endif %}" class="mr-3" style="width: 5rem;">
+                        </a>
+                    </td>
+
+                    <td><h6>{{ product.name }}</h6></td>
+                    <td><a class="btn btn-outline-danger" href="{% url 'cart_remove' product.id%}">Удалить</a></td>
+                    <td class="num">${{ item.price }}</td>
+                </tr>
+            {% endwith %}
+        {% endfor %}
+
+
+        {% if cart.coupon %}
+            <tr class="subtotal">
+                <td>Subtotal</td>
+                <td colspan="2"></td>
+                <td class="num">${{ cart.get_total_price }}</td>
+            </tr>
+            <tr>
+                <td>
+                    "{{ cart.coupon.code }}" coupon
+                    ({{ cart.coupon.discount }}% off)
+                </td>
+                <td colspan="2"></td>
+                <td class="num neg">
+                    - ${{ cart.get_discount|floatformat:"2" }}
+                </td>
+            </tr>
+        {% endif %}
+        <tr class="total">
+            <td>Total</td>
+            <td colspan="2"></td>
+            <td class="num">
+                ${{ cart.get_total_price_after_discount|floatformat:"2" }}
+            </td>
+        </tr>
+
+        </tbody>
+
+    </table></center>
+        <hr>
+        <center><form action="{% url 'apply' %}" method="post">
+            <label >Скидочный купон:</label>
+            {{ coupon_apply_form.code }}
+            <button class="btn btn-outline-dark" type="submit" value="Apply">Применить</button>
+            {% csrf_token %}
+        </form></center>
+        <hr>
+    <center><h3>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a href="{% url 'product_list' %}#shop-anchor"class="btn btn-outline-success">Продолжить покупки</a>
+            {% if cart.get_total_price != 0%}
+            <a href="{% url 'order_create' %}" class="btn btn-outline-info">
+                Оформить заказ
+            </a>
+            {% endif %}
+        </div>
+    </h3></center>
+
+    </div>
+
+
+      <div class="col-sm">
+        </div>
+  </div>
+
+
+
+</div>
+</div>
+
+{% endblock %}

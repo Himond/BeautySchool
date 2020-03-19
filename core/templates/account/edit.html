@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Редактирование данных{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid body-back " style="padding-top:50px;padding-bottom:50px">
+    <form class="transparent center-block" method="post" action="." enctype="multipart/form-data">
+        <div class="form-inner">
+            <h6>Изменить личные данные</h6>
+             {{ user_form }}
+            <label >День рождения</label>
+            {{ profile_form.date_of_birth }}
+            <label for="id_photo">Фото</label>
+            <div class="custom-file">
+            <input type="file" class="custom-file-input" name="photo" id="id_photo">
+            <label class="custom-file-label" for="id_photo">Выберите файл</label>
+            </div>
+            <button type="submit" class="btn btn-outline-dark btn-block btn-rounded" value="Change">Изменить!</button>
+            {% csrf_token %}
+
+        </div>
+
+    </form>
+
+</div>
+
+{% if messages %}
+<div class="container-fluid body-back">
+    <ul class="messages">
+        {% for message in messages %}
+            <center><li class="{{ message.tags }}" style="list-style-type: none;">
+                <h6>{{ message|safe }}</h6>
+                <a href="{% url 'dashboard' %}" class="close">x</a>
+            </li></center>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% endblock %}

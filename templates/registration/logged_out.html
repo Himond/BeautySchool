@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} Logged out! {% endblock %}
+{% block content %}
+
+<div class="container-fluid body-back " style="padding-top:50px;padding-bottom:50px">
+    <div class="card mb-3 text-center">
+  <img src="{% static 'core/img/goodbye.jpg' %}" class="card-img-top" alt="...">
+    <div class="card-header"><h6 class="card-title" style="font-size:40px">Вы вышли!</h6></div>
+  <div class="card-body">
+    <h6 class="card-text" style="font-size:30px">Всего доброго, возвращайтесь!</h6>
+  </div>
+  <div class="card-footer text-muted">
+      <h6 class="card-text" style="font-size:30px"><small class="text-muted">Вы успешно вышли из системы. Вы можете <a href="{% url 'login' %}">войти снова!</a></small></h6>
+  </div>
+</div>
+
+</div>
+
+{% endblock %}

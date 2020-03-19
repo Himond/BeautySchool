@@ -1,0 +1,296 @@
+{% extends "base.html" %}
+{% load static %}
+{% load staticfiles %}
+{% block title %}
+    Студия красоты БэкСтейдж
+{% endblock %}
+{% block scripts %}
+<script>
+    jQuery(document).ready(function($){
+    if($('ul.list').find('li').length > 3){
+    $('.show_hide_list').click(function(){
+    $('ul.list li:nth-child(n+4)').slideToggle('');
+    $(this).toggleClass('opnd_g');
+    if($(this).hasClass('opnd_g')){
+    $(this).html('Скрыть');}
+    else {$(this).html('Смотреть все');}
+    });
+    }else{$('.show_hide_list').hide();}
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid bg-studio" style="padding-top:200px;padding-bottom:200px">
+
+             <center><h1 class="tx-cool">БЭКСТЕЙДЖ</h1></center>
+             <center><h1 class="tx-cool">СТУДИЯ КРАСОТЫ</h1></center>
+        <center><i><h5 style="font-size: 25px;"><b>У нас работают лучшие мастера !</b></h5></i></center>
+
+</div>
+<div class="container-fluid bg-back-studio" style="padding-top:50px;padding-bottom:50px">
+
+
+
+    <div class="content">
+        <center><h5 style="font-size: 35px;"><b>О нас</b></h5></center>
+            <hr>
+
+
+                            <h6 style="font-size: 20px;"><i>
+                            <img src="{% static 'core/img/stud2.jpg' %}" alt="..." class="img-thumbnail rightimg" width="544" height="279">
+
+                            <img src="{% static 'core/img/stud1.jpg' %}" alt="..." class="img-thumbnail rightimg" width="544" height="279">
+                                <div style=" text-indent: 20px;">Быть красивой легко! От вас требуется лишь желание и немного времени,
+                                    все остальное сделают профессионалы салона красоты БэкСтейдж. Индивидуальный подход гарантирован!</div>
+
+                                                           <ul> В салоне красоты БэкСтейдж вам готовы предложить следующие виды услуг:
+
+                            <li>кабинет по уходу за телом (релаксирующие обертывания  и моделирующие программы, НОВИНКА на белорусском рынке итальянская косметика [Comfort Zone],
+                                виски-пеленание на австрийской косметике STYX и многое другое);</li>
+                             <li>кабинет аппаратного педикюра (процедура выполняется на немецкой косметике Gehwol, Pedibauer);</li>
+
+                            <li>кабинет по уходу за лицом/косметология (уход за различными типами кожи, классические уходы, а также безоперационная подтяжка лица, депиляция, шугаринг).
+                                                            Используется косметика Dr. Spiller, Natura Bisse, Ericson Laboratoire, HOLY LAND, Rica, Italwax).
+                                НОВИНКА – наращивание ресниц от классического объема до 5D!!!!!;</li>
+
+                            <li>маникюрный кабинет (маникюр классический, аппаратный, европейский женский, мужской и детский с использованием лаков OPI, Cuccio, Ihm,
+                                долговременное покрытие, созданное специально для голливудских звезд Artistic, яркие и модные гель-лаки Ingarden);</li>
+
+                            <li>парикмахерский зал (представлен весь спектр услуг, начиная от стрижек и укладок и заканчивая комплексными программами по уходу за волосами и
+                                                            сложным окрашиванием волос. Применяется косметика Kerastase, L’Oreal Professionnel, Moroccanoil, Lebel, Kardashian Beauty).
+                                НОВИНКА – эко-косметика O’right.</li></ul>
+
+                                <div style=" text-indent: 20px;">А если вы ищете интересный и полезный подарок для своих близких, у нас можно приобрести подарочный сертификат.
+
+                            В своей работе мы делаем ставку на качество косметики и уровень обслуживания!
+                                                            В салоне красоты VIP ROOM используются только лучшие профессиональные серии, признанные во всем мире.
+                                Высококвалифицированные мастера с профильным образованием и большим стажем работы внимательно выслушают все ваши пожелания и воплотят их в жизнь.
+                                И все это по удивительно приятным ценам, соответствующим уровню обслуживания и уровню косметики, на которой мы работаем!
+                                    Кстати, всю необходимую косметику вы можете приобрести в нашем салоне для домашнего ухода.</div>
+
+
+                           </i></h6>
+
+    </div>
+
+
+
+
+</div>
+<div class="container-fluid  bg-master"  style="padding-top:50px;padding-bottom:50px">
+    <center><h5 style="font-size: 35px;"><b>Наши мастера</b></h5></center>
+    <hr>
+<div class="row">
+    {% for master in masters%}
+<div class="col-sm">
+   <center> <figure class="snip1376">
+      <img src="/media/{{master.photo}}" alt="sample17" />
+      <figcaption class="text-center">
+        <h3>{{master.first_name}} {{master.last_name}}</h3>
+          <span><b>{{master.position}}</b></span>
+        <hr>
+        <i>{{master.body|linebreaksbr}} </i>
+          <hr>
+         <i> Направления: {{master.direction|linebreaksbr}} </i>
+        <div class="icons"><a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-vk"></i></a>
+          <a href="#"> <i class="fab fa-twitter"></i></a>
+        </div>
+      </figcaption>
+    </figure></center>
+</div>
+
+    {% endfor %}
+</div>
+
+
+
+</div>
+
+<div class="container-fluid body-back" style="padding-top:50px;padding-bottom:50px">
+    <a name="shop-anchor"></a>
+<center><h5 style="font-size: 35px;"><b>Наши услуги</b></h5></center>
+    <center><h6 style="font-size: 20px;"><i>Салон БэкСтейдж собрал замечательную команду, предоставляющую профессиональный сервис в области маникюра, педикюра, косметологии,
+        в сфере парикмахерских услуг. Красота не требует жертв, но требует времени, что предусмотрено в салоне "БэкСтейдж".
+        В целях экономии вашего времени вы можете обслуживаться сразу несколькими мастерами. Шикарная прическа и обворожительный маникюр в одно время - это легко и доступно.</i></h6></center>
+    <hr>
+
+
+    <div class="row">
+    <div class="col-2">
+    </div>
+
+    <div class="col-8 bg-shop" >
+      <div id="sidebar">
+
+            <center><h3>Категории</h3></center>
+          <hr>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item list-group-item-action" {% if not category %}class="selected"{% endif %}>
+                    <b><a href="{% url 'product_list' %}#shop-anchor" style="color:black">ВСЕ КАТЕГОРИИ</a></b>
+                </li>
+
+                {% for c in categories %}
+
+                    <li class="list-group-item list-group-item-action " {% if category.slug == c.slug %}class="selected"{% endif %}>
+                        <b><a href="{{ c.get_absolute_url }}#shop-anchor" style="color:black">{{ c.name }}</a></b>
+                    </li>
+
+                {% endfor %}
+
+            </ul>
+        </div>
+
+
+        <div id="main" class="product-list">
+        <hr>
+        <center><h3>{% if category %}{{ category.name }}{% else %}Услуги{% endif %}</h3></center>
+
+        <ul class="list " style="display:inline;">
+        {% for product in products %}
+
+            <li  style="list-style-type: none; margin-top:5px;">
+                <hr>
+                <div class="media center-block">
+                <div class="row ">
+                <div class="col-auto ">
+                    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'core/img/no_image.jpg' %}{% endif %}" class="mr-3" style="max-width: 200px;"alt="...">
+                </div>
+                    <div class="col-7 ">
+                    <div class="media-body">
+                        <div class="card-header"><h6 class="mt-0"><a href="{{ product.get_absolute_url }}" style="color: black; font-size: 20px;">{{ product.name }}</a></h6></div>
+                    <i>{{ product.description|truncatewords:18|linebreaksbr }}</i>
+
+                        <div class="card-footer " style="padding: 10px"><big class=" text-black">
+                               <center> Цена: ${{ product.price }}
+                                   <form action="{% url 'cart_add' product.id %}" method="post">
+                                       {{ cart_product_form }}
+                                       {% csrf_token %}
+                                       <button type="submit" class="btn btn-outline-success" value="Add to cart"> <i class="fas fa-shopping-cart"></i> В корзину</button>
+                                    </form>
+                                </center>
+                            </big>
+
+                      </div>
+                        </div>
+                        <div class="col-auto">
+
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+            <hr>
+            <center><div class="show_hide_list">Смотреть все</div></center>
+        </div>
+    </div>
+    <div class="col-2">
+    </div>
+  </div>
+
+
+</div>
+
+<div class="container-fluid body-back" style="padding-top:50px;padding-bottom:50px;">
+    <center><h5 style="font-size: 35px;"><b>Наши отзывы</b></h5></center>
+    <a name="comment-shop-anchor"></a>
+    <hr>
+<div class="owl-carousel block-items-review body-back" >
+    {% for review in reviews %}
+    <div class="item body-back">
+        <div class="inner-testimonial body-back">
+             <img class="media-object rounded-circle animated bounceIn full-opacity"  src="/media/{{review.name.profile.photo}}" alt="">
+            <h6 style="font-size: 25px;" class="city-name">{{review.name.first_name}} {{review.name.last_name}}</h6>
+            <i class="text-testimonial" >{{review.studio_review}}</i>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+<hr>
+                        {% if request.user.is_authenticated %}
+                        {% if review_entries == None %}
+
+                         <center><a href="{% url 'product_list' %}" class="btn btn-outline-dark" data-toggle="modal" data-target="#StudReView"><i>Оставить отзыв</i></a></center>
+                             <!-- Modal -->
+                            <div class="modal fade" id="StudReView" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-body bg-footer">
+                                    <form class="transparent center-block" method="post" action="{{ request.path|urlencode }}#comment-shop-anchor">
+                                        {% csrf_token %}
+                                        <div class="form-inner">
+                                            <h6>Отзыв</h6>
+                                            <label for="studio_review">Текст</label>
+                                            <textarea class="form-control" name="studio_review" rows="2" id="studio_review" required></textarea>
+                                                                                       <hr>
+                                            <button type="submit" class="btn btn-outline-dark btn-block btn-rounded" ><b>Оставить отзыв</b></button>
+                                        </div>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+
+                        {% else %}
+                        {% endif %}
+                        {% endif %}
+
+</div>
+
+<div class="container-fluid bg-back-contact"  style="padding-top:50px;padding-bottom:50px">
+<a name="contact"></a>
+
+  <div class="row">
+    <div class="col-6">
+
+        <center><h5 style="font-size: 35px;"><b>НАШИ КОНТАКТЫ</b></h5></center>
+        <hr>
+        <ul style="font-size: 25px;">
+            <b>Адрес:</b>
+            <li style="list-style-type: none;">
+                <b>г. Могилев, ул. Комсомольская д.3, 2-ой этаж.</b>
+            </li>
+
+        </ul>
+        <ul style="font-size: 25px;">
+            <b>Email Адрес:</b>
+            <li style="list-style-type: none;">
+                <b>backstage@mail.ru</b>
+            </li>
+
+        </ul>
+        <ul style="font-size: 25px;">
+            <b>Контактные телефоны:</b>
+            <li style="list-style-type: none;">
+                <b>+375296304919</b>
+            </li>
+            <li style="list-style-type: none;">
+                <b>+375445866555</b>
+            </li>
+
+        </ul>
+        <ul style="font-size: 25px;">
+            <b>Время работы:</b>
+            <li style="list-style-type: none;">
+                <b>с 8.00 до 20.00</b>
+            </li>
+
+        </ul>
+    </div>
+    <div class="col-6">
+        <center><div style="position:relative;overflow:hidden;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d587.7457402826986!2d30.335296388159698!3d53.89650678899013!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46d051efaef42975%3A0x6dc0704b0eb36b02!2zS29tc29tb2wnc2theWEgMywg0JzQvtCz0LjQu9GR0LI!5e0!3m2!1sru!2sby!4v1584015891280!5m2!1sru!2sby" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe></div>
+    </center>
+    </div>
+
+  </div>
+
+
+
+</div>
+{% endblock %}
