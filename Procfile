@@ -1,0 +1,1 @@
+web: gunicorn SchoolHairAndMakeUP.wsgi --log-file -
