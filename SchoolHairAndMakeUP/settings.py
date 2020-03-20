@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 from django.urls import reverse_lazy
 import os
-import whitenoise
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -149,15 +148,13 @@ AUTHENTICATION_BACKENDS = (
     'core.authentication.EmailAuthBackend',
 )
 CART_SESSION_ID = 'cart'
-ALLOWED_HOSTS = ['*']
 
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
-# The absolute path to the directory where collectstatic will collect static files for deployment.
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 
 # Simplified static file serving.
