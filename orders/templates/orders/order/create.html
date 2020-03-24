@@ -5,7 +5,17 @@
 
 {% block content %}
  <div class="container-fluid body-back" style="padding-top:50px;padding-bottom:50px">
-
+{% if messages %}
+        <div class="container-fluid body-back">
+            <ul class="messages">
+                {% for message in messages %}
+                    <center><li class="{{ message.tags }}" style="list-style-type: none;">
+                        <h6>{{ message|safe }}</h6>
+                    </li></center>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
     <form class="transparent center-block order-form" method="post" action=".">
         {% csrf_token %}
 
@@ -31,17 +41,28 @@
 
                    </center>
             </div>
-
+            {% if request.user.is_anonymous %}
+            <label for="id_first_name_shop">Имя</label>
+            <input type="text" name="first_name" maxlength="20" id="id_first_name_shop" required>
+            <label for="id_last_name_shop">Фамилия</label>
+            <input type="text" name="last_name" maxlength="20" id="id_last_name_shop" required>
+            <label for="id_email_shop">Email адрес</label>
+            <input type="email" name="email"  id="id_email_shop" placeholder="example@example.com" required>
+            <label for="id_phone_shop">Номер телефона</label>
+            <input type="tel" pattern="[\+]375\d{2}\d{3}\d{2}\d{2}" name="phone"  id="id_phone_shop" placeholder="+375291234567" required>
+            <button type="submit" class="btn btn-outline-dark btn-block btn-rounded">Сделать заказ</button>
+            {% else %}
             <label >Имя</label>
             {{ form.first_name }}
-            <label >Фамилия</label>
+            <label >Имя</label>
             {{ form.last_name }}
             <label >Email адрес</label>
             {{ form.email }}
-            <label >Телефон</label>
-            {{ form.phone }}
+            <label for="id_phone_shop_aut">Номер телефона</label>
+            <input type="tel" pattern="[\+]375\d{2}\d{3}\d{2}\d{2}" name="phone"  id="id_phone_shop_aut" placeholder="+375291234567" required>
             <button type="submit" class="btn btn-outline-dark btn-block btn-rounded">Сделать заказ</button>
-            {% csrf_token %}
+
+            {% endif %}
         </div>
         </form>
 

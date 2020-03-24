@@ -4,12 +4,35 @@
 {% block title %} Регистрация {% endblock %}
 {% block content %}
 <div class="container-fluid body-back mx-auto" style="padding-top:50px;padding-bottom:50px">
+    {% if messages %}
+        <div class="container-fluid body-back">
+            <ul class="messages">
+                {% for message in messages %}
+                    <center><li class="{{ message.tags }}" style="list-style-type: none;">
+                        <h6>{{ message|safe }}</h6>
+                    </li></center>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
     {% if request.user.is_anonymous %}
     <form class="transparent center-block" method="post" action="{% url 'register' %}">
         {% csrf_token %}
         <div class="form-inner">
             <h6>Регистрация</h6>
-            {{ user_form }}
+           <label for="id_username_reg">Логин</label>
+            <input type="text" name="username" maxlength="20" id="id_username_reg" required>
+            <label for="id_firstname">Имя</label>
+            <input type="text" name="first_name" maxlength="20" id="id_firstname" required>
+            <label for="id_lastname">Фамилия</label>
+            <input type="text" name="last_name" maxlength="20" id="id_lastname" required>
+            <label for="id_email">Email адрес</label>
+            <input type="email" name="email"  id="id_email" placeholder="example@example.com" required>
+            <label for="id_password_reg">Пароль</label>
+            <input  type="password" name="password" minlength="7" maxlength="16" id="id_password_reg" required>
+            <label for="id_password_rep">Повторите пароль</label>
+            <input  type="password" name="password2"  minlength="7" maxlength="16" id="id_password_rep" required>
+
             <button type="submit" class="btn btn-outline-dark btn-block btn-rounded">Создать аккаунт!</button>
         </div>
 

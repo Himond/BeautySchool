@@ -32,7 +32,7 @@ class Course(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     duration = models.PositiveIntegerField(default=0)
-    image = models.ImageField(upload_to='courses/%Y/%m/%d', blank=True)
+    image = models.ImageField(upload_to='courses/%Y/%m/%d', blank=True, default='course.jpg')
     discount = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)], default=0)
 
     class Meta:

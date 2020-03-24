@@ -38,7 +38,10 @@ def course_detail(request, id, slug):
                            'price_with_discount': price_with_discount
                            })
     else:
-        entry_form = EntryForm
+        if request.user.is_authenticated:
+            entry_form = EntryForm(instance=request.user)
+        else:
+            entry_form = EntryForm
     return render(request, 'courses/course/detail.html', {'course': course,
                                                           'entry_form': entry_form,
                                                           'price_with_discount': price_with_discount

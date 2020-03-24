@@ -34,7 +34,6 @@ urlpatterns = [
     path('edit/', views.edit, name='edit'),
     path('form/', views.FormCoreView.as_view, name='main'),
     path('register/', views.register, name='register'),
-    path('test/', views.test, name='test'),
     path('orders/', include('orders.urls')),
     path('shop/', include('shop.urls')),
     path('', views.main, name='main'),

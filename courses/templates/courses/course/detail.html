@@ -48,8 +48,10 @@
                                <center style="text-decoration:line-through"> Стоимость обучения: {{ course.price }} BYN</center>
                                 <center style="color:red"> Стоимость обучения cо скидкой: {{ price_with_discount }} BYN</center>
                          <hr>
-                         <center><a class="btn btn-outline-dark" data-toggle="modal" data-target="#Entry"><i>Записаться на курс</i></a></center>
+                         {% if request.user.is_anonymous %}
+                         <center><button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#Entry">Записаться на курс</button></center>
                              <!-- Modal -->
+
                             <div class="modal fade" id="Entry" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -59,16 +61,16 @@
                                         {% csrf_token %}
                                         <div class="form-inner">
                                             <h6>Запись на курс</h6>
-                                            <label >Имя</label>
-                                            {{ entry_form.first_name}}
-                                            <label>Фамилия</label>
-                                            {{ entry_form.last_name}}
-                                            <label>Email</label>
-                                            {{ entry_form.email}}
-                                            <label>Телефон</label>
-                                            {{ entry_form.phone}}
-                                            <label for="comment">Комментарий:</label>
-                                            <textarea class="form-control" name="comments" rows="2" id="comment" ></textarea>
+                                            <label for="id_first_name_course">Имя</label>
+                                            <input type="text" name="first_name" maxlength="20" id="id_first_name_course" required>
+                                            <label for="id_last_name_course">Фамилия</label>
+                                            <input type="text" name="last_name" maxlength="20" id="id_last_name_course" required>
+                                            <label for="id_email_course">Email адрес</label>
+                                            <input type="email" name="email"  id="id_email_course" placeholder="example@example.com" required>
+                                            <label for="id_phone_course">Номер телефона</label>
+                                            <input type="tel" pattern="[\+]375\d{2}\d{3}\d{2}\d{2}" name="phone"  id="id_phone_course" placeholder="+375291234567" required>
+                                            <label for="id_comment_course">Комментарий:</label>
+                                            <textarea class="form-control" name="comments" rows="2" id="id_comment_course" placeholder="Укажите время занятий(утро, вечер) и дополнительную информацию!" required></textarea>
                                             <hr>
                                             <button type="submit" class="btn btn-outline-dark btn-block btn-rounded"><b>Записаться на курс</b></button>
                                         </div>
@@ -77,6 +79,38 @@
                                 </div>
                               </div>
                             </div>
+                         {% else %}
+                         <center><button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#Entry1">Записаться на курс</button></center>
+                             <!-- Modal -->
+                         <div class="modal fade" id="Entry1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-body bg-footer">
+                                    <form class="transparent center-block" method="post" action="{{ request.path|urlencode }}">
+
+                                        {% csrf_token %}
+                                        <div class="form-inner">
+                                            <h6>Запись на курс</h6>
+                                            <label>Имя</label>
+                                            {{ entry_form.first_name}}
+                                            <label>Имя</label>
+                                            {{ entry_form.last_name }}
+                                            <label>Email адрес</label>
+                                            {{ entry_form.email }}
+                                            <label for="id_phone_course">Номер телефона</label>
+                                            <input type="tel" pattern="[\+]375\d{2}\d{3}\d{2}\d{2}" name="phone"  id="id_phone_course1" placeholder="+375291234567" required>
+                                            <label for="id_comment_course">Комментарий:</label>
+                                            <textarea class="form-control" name="comments" rows="2" id="id_comment_course1" placeholder="Укажите время занятий(утро, вечер) и дополнительную информацию!" required></textarea>
+                                            <hr>
+                                            <button type="submit" class="btn btn-outline-dark btn-block btn-rounded"><b>Записаться на курс</b></button>
+                                        </div>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                         {% endif %}
                             </big>
 
                       </div>

@@ -163,7 +163,7 @@
                     <i>{{ product.description|truncatewords:18|linebreaksbr }}</i>
 
                         <div class="card-footer " style="padding: 10px"><big class=" text-black">
-                               <center> Цена: ${{ product.price }}
+                               <center> Цена: {{ product.price }} BYN
                                    <form action="{% url 'cart_add' product.id %}" method="post">
                                        {{ cart_product_form }}
                                        {% csrf_token %}
@@ -261,17 +261,17 @@
         <ul style="font-size: 25px;">
             <b>Email Адрес:</b>
             <li style="list-style-type: none;">
-                <b>backstage@mail.ru</b>
+                <b><a href="mailto:backstage@mail.ru" style="color: black;">backstage@mail.ru</a></b>
             </li>
 
         </ul>
         <ul style="font-size: 25px;">
             <b>Контактные телефоны:</b>
             <li style="list-style-type: none;">
-                <b>+375296304919</b>
+                <a href="tel:+8(029)6304919"><i class="fas fa-phone" style="color: black;" ><b class="text-black"> +375 (29) 630-49-19</b></i></a>
             </li>
             <li style="list-style-type: none;">
-                <b>+375445866555</b>
+                <a href="tel:+8(044)5866555"><i class="fas fa-phone" style="color:black;" ><b class="text-black"> +375 (44) 586-65-55</b></i></a>
             </li>
 
         </ul>

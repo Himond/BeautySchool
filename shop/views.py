@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Category, Product, ReviewStudio, Masters
 from .forms import ReviewStudioForm
 from cart.forms import CartAddProductForm
+from django.contrib.auth.decorators import login_required
 
 
 def product_list(request, category_slug=None):
@@ -17,14 +18,14 @@ def product_list(request, category_slug=None):
         products = products.filter(category=category)
 
     if request.method == 'POST':
-
-        review_form = ReviewStudioForm(data=request.POST)
-        if review_form.is_valid():
-            new_review = review_form.save(commit=False)
-            # Assign the current post to the comment
-            new_review.name = request.user
-            # Save the comment to the database
-            new_review.save()
+        if request.user.is_authenticated:
+            review_form = ReviewStudioForm(data=request.POST)
+            if review_form.is_valid():
+                new_review = review_form.save(commit=False)
+                # Assign the current post to the comment
+                new_review.name = request.user
+                # Save the comment to the database
+                new_review.save()
 
     if request.user.is_authenticated:
         review_entries = ReviewStudio.objects.filter(name=request.user)

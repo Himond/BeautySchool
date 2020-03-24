@@ -10,10 +10,8 @@
 
         <div class="form-inner">
             <h6>Вход</h6>
-            <label >Имя пользователя или Email</label>
-            {{ form.username }}
-            <label >Пароль:</label>
-            {{ form.password }}
+            {{ form }}
+
             <button type="submit" class="btn btn-outline-dark btn-block btn-rounded">Войти!</button>
             <hr>
             <label><a href="{% url 'password_reset' %}" style="color:white; font-size: 15px;">Забыли свой пароль?</a></label>

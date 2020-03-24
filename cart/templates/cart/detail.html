@@ -41,7 +41,7 @@
 
                     <td><h6>{{ product.name }}</h6></td>
                     <td><a class="btn btn-outline-danger" href="{% url 'cart_remove' product.id%}">Удалить</a></td>
-                    <td class="num">${{ item.price }}</td>
+                    <td class="num">{{ item.price }} BYN</td>
                 </tr>
             {% endwith %}
         {% endfor %}
@@ -49,26 +49,26 @@
 
         {% if cart.coupon %}
             <tr class="subtotal">
-                <td>Subtotal</td>
+                <td>Цена до скидки</td>
                 <td colspan="2"></td>
-                <td class="num">${{ cart.get_total_price }}</td>
+                <td class="num">{{ cart.get_total_price }} BYN</td>
             </tr>
             <tr>
                 <td>
-                    "{{ cart.coupon.code }}" coupon
-                    ({{ cart.coupon.discount }}% off)
+                    "{{ cart.coupon.code }}" купон
+                    (скидка {{ cart.coupon.discount }} %)
                 </td>
                 <td colspan="2"></td>
                 <td class="num neg">
-                    - ${{ cart.get_discount|floatformat:"2" }}
+                    - {{ cart.get_discount|floatformat:"2" }} BYN
                 </td>
             </tr>
         {% endif %}
         <tr class="total">
-            <td>Total</td>
+            <td>Цена со скидкой</td>
             <td colspan="2"></td>
             <td class="num">
-                ${{ cart.get_total_price_after_discount|floatformat:"2" }}
+                {{ cart.get_total_price_after_discount|floatformat:"2" }} BYN
             </td>
         </tr>
 

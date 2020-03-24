@@ -4,12 +4,15 @@ from django.views import View
 # Create your views here.
 from .forms import UserRegistrationForm
 from django.contrib.auth import authenticate, login
-from .forms import LoginForm
+
 from django.contrib.auth.decorators import login_required
 from .models import Profile, Review
-from .forms import LoginForm, UserRegistrationForm, UserEditForm, ProfileEditForm, ReviewForm
+from django.contrib.auth.models import User
+from .forms import UserRegistrationForm, UserEditForm, ProfileEditForm, ReviewForm
 from django.contrib import messages
 from django.template import RequestContext
+
+
 
 class FormCoreView(View):
 
@@ -37,8 +40,6 @@ def main(request):
     return render(request, 'core/main.html', {'reviews': reviews,
                                               'review_entries': review_entries})
 
-def test(request):
-    return render(request, 'core/test.html')
 
 @login_required
 def dashboard(request):
@@ -74,28 +75,14 @@ def edit(request):
                        'profile_form': profile_form})
 
 
-def user_login(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            cd = form.cleaned_data
-            user = authenticate(email=cd['email'], password=cd['password'])
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return HttpResponse('Authenticated successfully')
-                else:
-                    return HttpResponse('Disabled account')
-            else:
-                return HttpResponse('Invalid login')
-    else:
-        form = LoginForm()
-    return render(request, 'ml', {'form': form})
-
-
 def register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
+        try:
+            unique_name = User.objects.get(username=request.POST['username'])
+        except Exception:
+            unique_name = False
+
         if user_form.is_valid():
             # Create a new user object but avoid saving it yet
             new_user = user_form.save(commit=False)
@@ -105,6 +92,11 @@ def register(request):
             new_user.save()
             profile = Profile.objects.create(user=new_user)
             return render(request, 'account/register_done.html', {'new_user': new_user})
+        elif unique_name:
+            messages.error(request, 'Ошибка! Пользователь с таким логином уже существует!')
+        elif request.POST['password'] != request.POST['password2']:
+            messages.error(request, 'Ошибка! Пароль и подтверждение пароля не совпадают!')
+        else: messages.error(request, 'Ошибка! Указан неверный Email!')
     else:
         user_form = UserRegistrationForm()
     return render(request, 'account/register.html', {'user_form': user_form})
