@@ -26,12 +26,8 @@ def order_create(request):
             #order_created.delay(order.id)
             return render(request, 'orders/order/created.html',
                             {'order': order})
-        else:
-            messages.error(request, 'Ошибка! Указан неверный Email!')
+
     else:
-        if request.user.is_authenticated:
-            form = OrderCreateForm(instance=request.user)
-        else:
-            form = OrderCreateForm
+        form = OrderCreateForm
     return render(request, 'orders/order/create.html',
                   {'cart': cart, 'form': form})
