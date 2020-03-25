@@ -68,7 +68,7 @@
                                             <label for="id_email_course">Email адрес</label>
                                             <input type="email" name="email"  id="id_email_course" placeholder="example@example.com" required>
                                             <label for="id_phone_course">Номер телефона</label>
-                                            <input type="tel" pattern="[\+]375\d{2}\d{3}\d{2}\d{2}" name="phone"  id="id_phone_course" placeholder="+375291234567" required>
+                                            <input type="tel" pattern="\d{2}\d{3}\d{2}\d{2}" name="phone"  id="id_phone_course" placeholder="291234567" required>
                                             <label for="id_comment_course">Комментарий:</label>
                                             <textarea class="form-control" name="comments" rows="2" id="id_comment_course" placeholder="Укажите время занятий(утро, вечер) и дополнительную информацию!" required></textarea>
                                             <hr>
@@ -99,7 +99,7 @@
                                             <label>Email адрес</label>
                                             {{ entry_form.email }}
                                             <label for="id_phone_course">Номер телефона</label>
-                                            <input type="tel" pattern="[\+]375\d{2}\d{3}\d{2}\d{2}" name="phone"  id="id_phone_course1" placeholder="+375291234567" required>
+                                            <input type="tel" pattern="d{2}\d{3}\d{2}\d{2}" name="phone"  id="id_phone_course1" placeholder="291234567" required>
                                             <label for="id_comment_course">Комментарий:</label>
                                             <textarea class="form-control" name="comments" rows="2" id="id_comment_course1" placeholder="Укажите время занятий(утро, вечер) и дополнительную информацию!" required></textarea>
                                             <hr>
