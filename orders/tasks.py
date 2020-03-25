@@ -9,9 +9,9 @@ def order_created(order_id):
     Задача для отправки уведомления по электронной почте при успешном создании заказа.
     """
     order = Order.objects.get(id=order_id)
-    subject = 'Order nr. {}'.format(order_id)
-    message = 'Dear {},\n\nYou have successfully placed an order.\
-                Your order id is {}.'.format(order.first_name,
+    subject = 'Заказ №. {}'.format(order_id)
+    message = 'Дорогой {},\n\nВы успешно записались на услугу в салоне красоты БэкСтейдж.\
+                Ваш идентификатор заказа {}. В ближайшее время с Вами свяжется наш специалист'.format(order.first_name,
                                              order.id)
 
     mail_sent = send_mail(subject,
@@ -19,3 +19,5 @@ def order_created(order_id):
                           settings.EMAIL_HOST_USER,
                           [order.email])
     return mail_sent
+
+
