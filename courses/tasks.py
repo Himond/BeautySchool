@@ -19,3 +19,4 @@ def course_created(course_id, course_email, course_user):
     return mail_sent
 
 
+

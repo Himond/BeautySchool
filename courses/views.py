@@ -32,7 +32,7 @@ def course_detail(request, id, slug):
             entry_form.course = course
             entry_form.save()
             messages.success(request, 'Ваша заявка отправлена! Наш менеджер свяжется с вами в ближайшее время!')
-            course_created.delay(entry_form.course.id, entry_form.email, entry_form.first_name)
+            #course_created.delay(entry_form.course.id, entry_form.email, entry_form.first_name)
             return render(request,
                           'courses/course/detail.html',
                           {'entry_form': entry_form,
