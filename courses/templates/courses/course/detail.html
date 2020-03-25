@@ -58,7 +58,7 @@
                                   <div class="modal-body bg-footer">
                                     <form class="transparent center-block" method="post" action="{{ request.path|urlencode }}">
 
-                                        {% csrf_token %}
+
                                         <div class="form-inner">
                                             <h6>Запись на курс</h6>
                                             <label for="id_first_name_course">Имя</label>
@@ -73,6 +73,7 @@
                                             <textarea class="form-control" name="comments" rows="2" id="id_comment_course" placeholder="Укажите время занятий(утро, вечер) и дополнительную информацию!" required></textarea>
                                             <hr>
                                             <button type="submit" class="btn btn-outline-dark btn-block btn-rounded"><b>Записаться на курс</b></button>
+                                            {% csrf_token %}
                                         </div>
                                     </form>
                                   </div>
@@ -88,7 +89,7 @@
                                   <div class="modal-body bg-footer">
                                     <form class="transparent center-block" method="post" action="{{ request.path|urlencode }}">
 
-                                        {% csrf_token %}
+
                                         <div class="form-inner">
                                             <h6>Запись на курс</h6>
                                             <label>Имя</label>
@@ -103,6 +104,7 @@
                                             <textarea class="form-control" name="comments" rows="2" id="id_comment_course1" placeholder="Укажите время занятий(утро, вечер) и дополнительную информацию!" required></textarea>
                                             <hr>
                                             <button type="submit" class="btn btn-outline-dark btn-block btn-rounded"><b>Записаться на курс</b></button>
+                                            {% csrf_token %}
                                         </div>
                                     </form>
                                   </div>
