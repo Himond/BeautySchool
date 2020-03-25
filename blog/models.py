@@ -24,7 +24,7 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
-    photo = models.ImageField(upload_to='blogs/%Y/%m/%d', blank=True, default='blog.jpg')
+    photo = models.ImageField(upload_to='blogs/%Y/%m/%d', blank=True, default='blog1.jpg')
     photo_first = models.ImageField(upload_to='blogs/%Y/%m/%d', blank=True)
     photo_second = models.ImageField(upload_to='blogs/%Y/%m/%d', blank=True)
     photo_third = models.ImageField(upload_to='blogs/%Y/%m/%d', blank=True)
