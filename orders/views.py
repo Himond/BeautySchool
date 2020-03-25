@@ -3,7 +3,7 @@ from .models import OrderItem
 from .forms import OrderCreateForm
 from cart.cart import Cart
 from django.contrib import messages
-from .tasks import order_created
+#from .tasks import order_created
 
 def order_create(request):
     cart = Cart(request)

@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Subject, Course
 from .forms import EntryForm
 from django.contrib import messages
-from .tasks import course_created
+#from .tasks import course_created
 
 def course_list(request, subject_slug=None):
     subject = None
