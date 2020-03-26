@@ -32,8 +32,6 @@ def course_detail(request, id, slug):
         if entry_form.is_valid():
             entry_form = entry_form.save(commit=False)
             entry_form.course = course
-            entry_form.save()
-            messages.success(request, 'Ваша заявка отправлена! Наш менеджер свяжется с вами в ближайшее время!')
 
             """Отправка письма без асинхронности"""
             order = Course.objects.get(id=entry_form.course.id)
@@ -41,10 +39,15 @@ def course_detail(request, id, slug):
             message = 'Дорогой {},\n\nВы успешно записались на курс {}. В ближайшее время с Вами свяжется наш специалист'.format(
                 entry_form.first_name, order.title)
 
-            send_mail(subject,
-                      message,
-                      settings.EMAIL_HOST_USER,
-                     [entry_form.email])
+            try:
+                send_mail(subject,
+                          message,
+                          settings.EMAIL_HOST_USER,
+                         [entry_form.email])
+                messages.success(request, 'Ваша заявка отправлена! Наш менеджер свяжется с вами в ближайшее время!')
+                entry_form.save()
+            except Exception:
+                messages.success(request, 'Электронной почты {} не существует. Проверьте правильность введенных данных'.format(entry_form.email))
 
             """Отправка письма асинхронно"""
             #course_created.delay(entry_form.course.id, entry_form.email, entry_form.first_name)
