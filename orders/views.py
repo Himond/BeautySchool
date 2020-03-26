@@ -3,6 +3,8 @@ from .models import OrderItem
 from .forms import OrderCreateForm
 from cart.cart import Cart
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
 from .tasks import order_created
 
 def order_create(request):
@@ -22,8 +24,20 @@ def order_create(request):
                                             quantity=item['quantity'])
                 # очистка корзины
             cart.clear()
+            """Отправка письма без асинхронности"""
+            subject = 'Заказ №. {}'.format(order.id)
+            message = 'Дорогой {},\n\nВы успешно записались на услугу в салоне красоты БэкСтейдж.\
+                            Ваш идентификатор заказа {}. В ближайшее время с Вами свяжется наш специалист'.format(
+                order.first_name,
+                order.id)
+
+            send_mail(subject,
+                     message,
+                     settings.EMAIL_HOST_USER,
+                     [order.email])
+
             # запуск асинхронной задачи
-            order_created.delay(order.id)
+            #order_created.delay(order.id)
             return render(request, 'orders/order/created.html',
                             {'order': order})
         else:

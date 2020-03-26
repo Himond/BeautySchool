@@ -1,7 +1,8 @@
 from celery import task
 from django.core.mail import send_mail
-from .models import Course
 from django.conf import settings
+from .models import Course
+
 
 @task
 def course_created(course_id, course_email, course_user):
